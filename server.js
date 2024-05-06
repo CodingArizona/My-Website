@@ -11,7 +11,11 @@ const errorMiddleware = require("./middlewares/error-middleware");
 
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = ["http://localhost:5173", "http://localhost:4173"];
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://localhost:4173",
+      "https://ankit-shop.onrender.com",
+    ];
     const isAllowed = allowedOrigins.includes(origin);
     callback(null, isAllowed ? origin : false);
   },
@@ -30,7 +34,7 @@ app.use("/api/admin", adminRoute);
 
 app.use(errorMiddleware);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.VITE_APP_API || 5000;
 
 connectDb().then(() => {
   app.listen(PORT, () => {
